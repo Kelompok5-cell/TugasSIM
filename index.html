@@ -1,0 +1,2017 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pengumpulan Tugas Mata Kuliah</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #ededed 0%, #cecece 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            max-width: 1400px;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #7f93ee 0%, #6171da 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .login-container {
+            max-width: 450px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+            font-family: inherit;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #7588da 0%, #5287b8 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #6c757d 0%, #5a6268 100%);
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #28a745 0%, #218838 100%);
+        }
+
+        .btn-warning {
+            background: linear-gradient(135deg, #ffc107 0%, #e0a800 100%);
+        }
+
+        .btn-small {
+            width: auto;
+            padding: 8px 16px;
+            font-size: 14px;
+            margin: 5px;
+            display: inline-block;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .dashboard {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 30px;
+            min-height: 500px;
+        }
+
+        .sidebar {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            height: fit-content;
+        }
+
+        .sidebar h3 {
+            margin-bottom: 20px;
+            color: #333;
+            font-size: 1.3em;
+        }
+
+        .menu-item {
+            padding: 14px;
+            margin-bottom: 10px;
+            background: white;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+            font-size: 15px;
+        }
+
+        .menu-item:hover {
+            border-color: #667eea;
+            transform: translateX(5px);
+        }
+
+        .menu-item.active {
+            background: linear-gradient(135deg, #6c7fd3 0%, #6b81d1 100%);
+            color: white;
+        }
+
+        .main-content {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 10px;
+            overflow-y: auto;
+            max-height: calc(100vh - 200px);
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .card h3 {
+            margin-bottom: 15px;
+            color: #333;
+            font-size: 1.5em;
+        }
+
+        .card h4 {
+            margin-bottom: 10px;
+            color: #667eea;
+            font-size: 1.2em;
+        }
+
+        .task-item {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border-left: 5px solid #667eea;
+            transition: transform 0.2s;
+        }
+
+        .task-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .task-item h4 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 1.3em;
+        }
+
+        .task-item p {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 8px;
+            line-height: 1.6;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-right: 8px;
+            margin-top: 5px;
+        }
+
+        .badge-success {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .badge-danger {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .badge-warning {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .badge-info {
+            background: #d1ecf1;
+            color: #0c5460;
+        }
+
+        .badge-primary {
+            background: #cce5ff;
+            color: #004085;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background: white;
+        }
+
+        table th,
+        table td {
+            padding: 14px;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        table th {
+            background: #f8f9fa;
+            font-weight: 600;
+            color: #333;
+            font-size: 14px;
+        }
+
+        table td {
+            font-size: 14px;
+        }
+
+        table tr:hover {
+            background: #f8f9fa;
+        }
+
+        .user-info {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .user-info div {
+            font-size: 16px;
+        }
+
+        .alert {
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+
+        .alert-success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .alert-danger {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .alert-info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+
+        .file-upload {
+            border: 2px dashed #667eea;
+            padding: 40px;
+            text-align: center;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: #f8f9fa;
+        }
+
+        .file-upload:hover {
+            background: #e9ecef;
+            border-color: #764ba2;
+        }
+
+        .file-upload input[type="file"] {
+            display: none;
+        }
+
+        .file-upload p {
+            margin: 5px 0;
+        }
+
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .stat-card h3 {
+            font-size: 2em;
+            color: #667eea;
+            margin-bottom: 5px;
+        }
+
+        .stat-card p {
+            color: #666;
+            font-size: 14px;
+        }
+
+        /* Modal for Grading */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 10% auto;
+            padding: 30px;
+            border: 1px solid #888;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .modal-header h3 {
+            margin: 0;
+            color: #333;
+        }
+
+        .close {
+            color: #aaa;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #000;
+        }
+
+        .grade-input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 18px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .grade-badge {
+            display: inline-block;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            background: #667eea;
+            color: white;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .dashboard {
+                grid-template-columns: 240px 1fr;
+            }
+
+            .header h1 {
+                font-size: 2em;
+            }
+
+            .content {
+                padding: 30px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .dashboard {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                margin-bottom: 20px;
+            }
+
+            .header h1 {
+                font-size: 1.8em;
+            }
+
+            .header p {
+                font-size: 0.9em;
+            }
+
+            .content {
+                padding: 20px;
+            }
+
+            .main-content {
+                padding: 20px;
+                max-height: none;
+            }
+
+            .user-info {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+
+            table {
+                font-size: 12px;
+            }
+
+            table th,
+            table td {
+                padding: 10px 8px;
+            }
+
+            .task-item {
+                padding: 15px;
+            }
+
+            .stats-container {
+                grid-template-columns: 1fr;
+            }
+
+            .modal-content {
+                width: 95%;
+                margin: 20% auto;
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 1.5em;
+            }
+
+            .content {
+                padding: 15px;
+            }
+
+            .card {
+                padding: 15px;
+            }
+
+            .btn-small {
+                padding: 6px 12px;
+                font-size: 12px;
+            }
+
+            table {
+                display: block;
+                overflow-x: auto;
+                white-space: nowrap;
+            }
+        }
+
+        /* Loading Spinner */
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #667eea;
+        }
+
+        .loading::after {
+            content: "⏳";
+            font-size: 2em;
+            animation: spin 2s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📚 Pengumpulan Tugas Mata Kuliah</h1>
+            <p>Sistem Manajemen Tugas Daring - Universitas Negeri Gorontalo</p>
+        </div>
+
+        <div class="content">
+            <!-- Login Page -->
+            <div id="loginPage" class="login-container">
+                <div class="card">
+                    <h3>Login Sistem</h3>
+                    <div class="form-group">
+                        <label>Pilih Jenis Pengguna</label>
+                        <select id="userType" onchange="updateUserTypeLabel()">
+                            <option value="mahasiswa">Mahasiswa</option>
+                            <option value="dosen">Dosen</option>
+                            <option value="operator">Operator</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label id="usernameLabel">NIM</label>
+                        <input type="text" id="username" placeholder="Masukkan NIM">
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" id="password" placeholder="Masukkan Password">
+                    </div>
+                    <button class="btn" onclick="login()">Login</button>
+                    <div id="loginMessage" style="margin-top: 15px;"></div>
+                </div>
+            </div>
+
+            <!-- Mahasiswa Dashboard -->
+            <div id="mahasiswaDashboard" class="hidden">
+                <div class="user-info">
+                    <div>
+                        <strong>👨‍🎓 Mahasiswa:</strong> <span id="mahasiswaNim"></span>
+                    </div>
+                    <button class="btn btn-small btn-secondary" onclick="logout()">Logout</button>
+                </div>
+                <div class="dashboard">
+                    <div class="sidebar">
+                        <h3>Menu</h3>
+                        <div class="menu-item active" onclick="showMahasiswaSection('tugasAktif')">📋 Tugas Aktif</div>
+                        <div class="menu-item" onclick="showMahasiswaSection('uploadTugas')">📤 Upload Tugas</div>
+                        <div class="menu-item" onclick="showMahasiswaSection('historiTugas')">📊 Histori Tugas</div>
+                    </div>
+                    <div class="main-content">
+                        <!-- Tugas Aktif -->
+                        <div id="tugasAktifSection">
+                            <h3>Daftar Tugas Aktif</h3>
+                            <div id="tugasAktifList"></div>
+                        </div>
+
+                        <!-- Upload Tugas -->
+                        <div id="uploadTugasSection" class="hidden">
+                            <h3>Upload Tugas</h3>
+                            <div class="card">
+                                <div class="form-group">
+                                    <label>Pilih Tugas</label>
+                                    <select id="selectTugasUpload" onchange="showTugasDetail()"></select>
+                                </div>
+                                <div id="tugasDetailUpload" class="hidden" style="margin-bottom: 20px; padding: 15px; background: #f8f9fa; border-radius: 8px;">
+                                    <h4>Detail Tugas:</h4>
+                                    <p id="detailMataKuliah"></p>
+                                    <p id="detailJenisTugas"></p>
+                                    <p id="detailDeskripsi"></p>
+                                    <p id="detailDeadline"></p>
+                                </div>
+                                <div class="form-group">
+                                    <label>Upload File</label>
+                                    <div class="file-upload" onclick="document.getElementById('fileInput').click()">
+                                        <input type="file" id="fileInput" onchange="handleFileSelect(event)" accept=".pdf,.doc,.docx,.ppt,.pptx">
+                                        <p style="font-size: 2em;">📁</p>
+                                        <p style="font-weight: 600; color: #667eea;">Klik untuk memilih file</p>
+                                        <p style="font-size: 12px; color: #666; margin-top: 10px;">Format: PDF, DOC, DOCX, PPT, PPTX (Max 10MB)</p>
+                                        <div id="selectedFileName" style="margin-top: 10px; color: #667eea; font-weight: 600;"></div>
+                                    </div>
+                                </div>
+                                <button class="btn btn-success" id="submitTugasBtn" onclick="uploadTugas()">Submit Tugas</button>
+                                <div id="uploadMessage" style="margin-top: 15px;"></div>
+                            </div>
+                        </div>
+
+                        <!-- Histori Tugas -->
+                        <div id="historiTugasSection" class="hidden">
+                            <h3>Histori Tugas Saya</h3>
+                            <div id="historiTugasList"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dosen Dashboard -->
+            <div id="dosenDashboard" class="hidden">
+                <div class="user-info">
+                    <div>
+                        <strong>👨‍🏫 Dosen Pengajar</strong>
+                    </div>
+                    <button class="btn btn-small btn-secondary" onclick="logout()">Logout</button>
+                </div>
+                <div class="dashboard">
+                    <div class="sidebar">
+                        <h3>Menu</h3>
+                        <div class="menu-item active" onclick="showDosenSection('buatTugas')">➕ Buat Tugas</div>
+                        <div class="menu-item" onclick="showDosenSection('daftarTugas')">📋 Daftar Tugas</div>
+                        <div class="menu-item" onclick="showDosenSection('pantauPengumpulan')">👥 Pantau Pengumpulan</div>
+                    </div>
+                    <div class="main-content">
+                        <!-- Buat Tugas -->
+                        <div id="buatTugasSection">
+                            <h3>Buat Tugas Baru</h3>
+                            <div class="card">
+                                <div class="form-group">
+                                    <label>Mata Kuliah</label>
+                                    <select id="mataKuliahTugas"></select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Judul Tugas</label>
+                                    <input type="text" id="judulTugas" placeholder="Masukkan judul tugas">
+                                </div>
+                                <div class="form-group">
+                                    <label>Jenis Tugas</label>
+                                    <select id="jenisTugas">
+                                        <option value="Makalah">Makalah</option>
+                                        <option value="Presentasi (PPT)">Presentasi (PPT)</option>
+                                        <option value="Laporan">Laporan</option>
+                                        <option value="Tugas Umum">Tugas Umum</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Deskripsi Tugas</label>
+                                    <textarea id="deskripsiTugas" rows="4" placeholder="Masukkan deskripsi tugas"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label>Deadline</label>
+                                    <input type="datetime-local" id="deadlineTugas">
+                                </div>
+                                <button class="btn btn-success" onclick="buatTugas()">Buat Tugas</button>
+                                <div id="buatTugasMessage" style="margin-top: 15px;"></div>
+                            </div>
+                        </div>
+
+                        <!-- Daftar Tugas -->
+                        <div id="daftarTugasSection" class="hidden">
+                            <h3>Daftar Tugas yang Telah Dibuat</h3>
+                            <div id="daftarTugasList"></div>
+                        </div>
+
+                        <!-- Pantau Pengumpulan -->
+                        <div id="pantauPengumpulanSection" class="hidden">
+                            <h3>Pantau Pengumpulan Tugas</h3>
+                            <div class="card">
+                                <div class="form-group">
+                                    <label>Pilih Tugas</label>
+                                    <select id="selectTugasPantau" onchange="loadPengumpulan()"></select>
+                                </div>
+                            </div>
+                            <div id="pengumpulanList"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Operator Dashboard -->
+            <div id="operatorDashboard" class="hidden">
+                <div class="user-info">
+                    <div>
+                        <strong>👨‍💼 Operator Sistem</strong>
+                    </div>
+                    <button class="btn btn-small btn-secondary" onclick="logout()">Logout</button>
+                </div>
+                <div class="dashboard">
+                    <div class="sidebar">
+                        <h3>Menu</h3>
+                        <div class="menu-item active" onclick="showOperatorSection('kelolaTugas')">📝 Kelola Tugas</div>
+                        <div class="menu-item" onclick="showOperatorSection('kelolaPassword')">🔐 Kelola Password</div>
+                    </div>
+                    <div class="main-content">
+                        <!-- Kelola Tugas -->
+                        <div id="kelolaTugasSection">
+                            <h3>Kelola Tugas</h3>
+                            <div id="kelolaTugasList"></div>
+                        </div>
+
+                        <!-- Kelola Password -->
+                        <div id="kelolaPasswordSection" class="hidden">
+                            <h3>Kelola Password Pengguna</h3>
+                            <div class="card">
+                                <h4>Ubah Password Mahasiswa</h4>
+                                <div class="form-group">
+                                    <label>NIM Mahasiswa</label>
+                                    <select id="nimMahasiswaPassword"></select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Password Baru</label>
+                                    <input type="password" id="passwordMahasiswaBaru" placeholder="Minimal 6 karakter">
+                                </div>
+                                <button class="btn btn-success" onclick="ubahPasswordMahasiswa()">Ubah Password Mahasiswa</button>
+                            </div>
+
+                            <div class="card" style="margin-top: 20px;">
+                                <h4>Ubah Password Dosen</h4>
+                                <div class="form-group">
+                                    <label>Password Baru Dosen</label>
+                                    <input type="password" id="passwordDosenBaru" placeholder="Minimal 6 karakter">
+                                </div>
+                                <button class="btn btn-success" onclick="ubahPasswordDosen()">Ubah Password Dosen</button>
+                            </div>
+
+                            <div class="card" style="margin-top: 20px;">
+                                <h4>Ubah Password Operator</h4>
+                                <div class="form-group">
+                                    <label>Password Baru Operator</label>
+                                    <input type="password" id="passwordOperatorBaru" placeholder="Minimal 6 karakter">
+                                </div>
+                                <button class="btn btn-success" onclick="ubahPasswordOperator()">Ubah Password Operator</button>
+                            </div>
+                            <div id="passwordMessage" style="margin-top: 15px;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Grading -->
+    <div id="gradingModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>📝 Beri Nilai</h3>
+                <span class="close" onclick="closeGradingModal()">&times;</span>
+            </div>
+            <div>
+                <p><strong>NIM:</strong> <span id="modalNim"></span></p>
+                <p><strong>Tugas:</strong> <span id="modalTugas"></span></p>
+                <div class="form-group" style="margin-top: 20px;">
+                    <label>Nilai (0-100)</label>
+                    <input type="number" id="gradeInput" class="grade-input" min="0" max="100" placeholder="Masukkan nilai">
+                </div>
+                <div class="form-group">
+                    <label>Catatan (Opsional)</label>
+                    <textarea id="noteInput" rows="3" placeholder="Masukkan catatan untuk mahasiswa"></textarea>
+                </div>
+                <button class="btn btn-success" onclick="submitGrade()">Simpan Nilai</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-storage-compat.js"></script>
+
+    <script>
+        // ============================================================
+        // FIREBASE CONFIGURATION
+        // GANTI BAGIAN INI DENGAN CONFIG FIREBASE ANDA
+        // ============================================================
+        const firebaseConfig = {
+           apiKey: "AIzaSyBC7jaREP3IEnqCBBNnwiJq1a86Ezt6aZ8",
+           authDomain: "tgs-akhir-sim.firebaseapp.com",
+           databaseURL: "https://tgs-akhir-sim-default-rtdb.asia-southeast1.firebasedatabase.app",
+           projectId: "tgs-akhir-sim",
+           storageBucket: "tgs-akhir-sim.firebasestorage.app",
+           messagingSenderId: "105512871600",
+           appId: "1:105512871600:web:fd7de6a75095539e2bbd75",
+       measurementId: "G-CJLRSZ01FM"
+        };
+        // ============================================================
+        // END OF FIREBASE CONFIGURATION
+        // ============================================================
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+        const storage = firebase.storage();
+
+        // Data Konstanta
+        const MAHASISWA_NIMS = [
+            '131424061', '131424062', '131424063', '131424064', '131424065',
+            '131424066', '131424067', '131424068', '131424069', '131424070',
+            '131424071', '131424072', '131424073', '131424074', '131424076',
+            '131424077', '131424078', '131424079', '131424080', '131424081',
+            '131424082', '131424083', '131424084', '131424085', '131424086',
+            '131424088', '131424089', '131424090'
+        ];
+
+        const MATA_KULIAH = [
+            'Manajemen Peserta Didik',
+            'Manajemen Sarana dan Prasarana Pendidikan',
+            'Psikologi Manajemen Pendidikan',
+            'Manajemen Kearsipan',
+            'Penelitian Kuantitatif',
+            'Manajemen Berbasis Sekolah',
+            'Sistem Informasi dan Pengambilan Keputusan',
+            'Kemaritiman'
+        ];
+
+        let currentUser = null;
+        let currentUserType = null;
+        let selectedFile = null;
+        let allTugasData = {};
+        let currentGradingTugasId = null;
+        let currentGradingNim = null;
+
+        // Initialize system
+        window.onload = function() {
+            initializeSystem();
+            populateMataKuliah();
+        };
+
+        // Initialize System Data
+        async function initializeSystem() {
+            try {
+                const mahasiswaSnapshot = await database.ref('users/mahasiswa').once('value');
+                if (!mahasiswaSnapshot.exists()) {
+                    const mahasiswaData = {};
+                    MAHASISWA_NIMS.forEach(nim => {
+                        mahasiswaData[nim] = {
+                            nim: nim,
+                            password: 'ung2024'
+                        };
+                    });
+                    await database.ref('users/mahasiswa').set(mahasiswaData);
+                    console.log('Data mahasiswa berhasil diinisialisasi');
+                }
+
+                const dosenSnapshot = await database.ref('users/dosen').once('value');
+                if (!dosenSnapshot.exists()) {
+                    await database.ref('users/dosen').set({
+                        username: 'dosenmengajar',
+                        password: 'fipung'
+                    });
+                    console.log('Data dosen berhasil diinisialisasi');
+                }
+
+                const operatorSnapshot = await database.ref('users/operator').once('value');
+                if (!operatorSnapshot.exists()) {
+                    await database.ref('users/operator').set({
+                        username: 'ungungul',
+                        password: 'kelascmp'
+                    });
+                    console.log('Data operator berhasil diinisialisasi');
+                }
+            } catch (error) {
+                console.error('Error initializing system:', error);
+            }
+        }
+
+        // Update label based on user type
+        function updateUserTypeLabel() {
+            const userType = document.getElementById('userType').value;
+            const usernameLabel = document.getElementById('usernameLabel');
+            const usernameInput = document.getElementById('username');
+            
+            if (userType === 'mahasiswa') {
+                usernameLabel.textContent = 'NIM';
+                usernameInput.placeholder = 'Masukkan NIM';
+            } else {
+                usernameLabel.textContent = 'Username';
+                usernameInput.placeholder = 'Masukkan Username';
+            }
+        }
+
+        // Login Function
+        async function login() {
+            const userType = document.getElementById('userType').value;
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value;
+            const messageDiv = document.getElementById('loginMessage');
+
+            if (!username || !password) {
+                showMessage(messageDiv, 'Harap isi semua field!', 'danger');
+                return;
+            }
+
+            try {
+                if (userType === 'mahasiswa') {
+                    if (!MAHASISWA_NIMS.includes(username)) {
+                        showMessage(messageDiv, 'NIM tidak terdaftar!', 'danger');
+                        return;
+                    }
+                    
+                    const snapshot = await database.ref('users/mahasiswa/' + username).once('value');
+                    const data = snapshot.val();
+                    
+                    if (data && data.password === password) {
+                        currentUser = username;
+                        currentUserType = 'mahasiswa';
+                        showMessage(messageDiv, 'Login berhasil! Memuat dashboard...', 'success');
+                        setTimeout(() => {
+                            showDashboard('mahasiswa');
+                            loadMahasiswaData();
+                        }, 500);
+                    } else {
+                        showMessage(messageDiv, 'Password salah!', 'danger');
+                    }
+                } else if (userType === 'dosen') {
+                    const snapshot = await database.ref('users/dosen').once('value');
+                    const data = snapshot.val();
+                    
+                    if (data && data.username === username && data.password === password) {
+                        currentUser = username;
+                        currentUserType = 'dosen';
+                        showMessage(messageDiv, 'Login berhasil! Memuat dashboard...', 'success');
+                        setTimeout(() => {
+                            showDashboard('dosen');
+                            loadDosenData();
+                        }, 500);
+                    } else {
+                        showMessage(messageDiv, 'Username atau password salah!', 'danger');
+                    }
+                } else if (userType === 'operator') {
+                    const snapshot = await database.ref('users/operator').once('value');
+                    const data = snapshot.val();
+                    
+                    if (data && data.username === username && data.password === password) {
+                        currentUser = username;
+                        currentUserType = 'operator';
+                        showMessage(messageDiv, 'Login berhasil! Memuat dashboard...', 'success');
+                        setTimeout(() => {
+                            showDashboard('operator');
+                            loadOperatorData();
+                        }, 500);
+                    } else {
+                        showMessage(messageDiv, 'Username atau password salah!', 'danger');
+                    }
+                }
+            } catch (error) {
+                console.error('Login error:', error);
+                showMessage(messageDiv, 'Terjadi kesalahan saat login: ' + error.message, 'danger');
+            }
+        }
+
+        // Show Dashboard
+        function showDashboard(type) {
+            document.getElementById('loginPage').classList.add('hidden');
+            document.getElementById('mahasiswaDashboard').classList.add('hidden');
+            document.getElementById('dosenDashboard').classList.add('hidden');
+            document.getElementById('operatorDashboard').classList.add('hidden');
+            
+            if (type === 'mahasiswa') {
+                document.getElementById('mahasiswaDashboard').classList.remove('hidden');
+            } else if (type === 'dosen') {
+                document.getElementById('dosenDashboard').classList.remove('hidden');
+            } else if (type === 'operator') {
+                document.getElementById('operatorDashboard').classList.remove('hidden');
+            }
+        }
+
+        // Logout
+        function logout() {
+            currentUser = null;
+            currentUserType = null;
+            selectedFile = null;
+            allTugasData = {};
+            
+            document.getElementById('username').value = '';
+            document.getElementById('password').value = '';
+            document.getElementById('loginMessage').innerHTML = '';
+            
+            document.getElementById('mahasiswaDashboard').classList.add('hidden');
+            document.getElementById('dosenDashboard').classList.add('hidden');
+            document.getElementById('operatorDashboard').classList.add('hidden');
+            
+            document.getElementById('loginPage').classList.remove('hidden');
+        }
+
+        // Populate Mata Kuliah
+        function populateMataKuliah() {
+            const select = document.getElementById('mataKuliahTugas');
+            select.innerHTML = '<option value="">Pilih Mata Kuliah</option>';
+            MATA_KULIAH.forEach(mk => {
+                const option = document.createElement('option');
+                option.value = mk;
+                option.textContent = mk;
+                select.appendChild(option);
+            });
+        }
+
+        // Show Message
+        function showMessage(element, message, type) {
+            element.innerHTML = `<div class="alert alert-${type}">${message}</div>`;
+            setTimeout(() => {
+                if (type !== 'success') {
+                    element.innerHTML = '';
+                }
+            }, 5000);
+        }
+
+        // ==================== MAHASISWA FUNCTIONS ====================
+
+        function showMahasiswaSection(section) {
+            document.getElementById('tugasAktifSection').classList.add('hidden');
+            document.getElementById('uploadTugasSection').classList.add('hidden');
+            document.getElementById('historiTugasSection').classList.add('hidden');
+            
+            document.querySelectorAll('#mahasiswaDashboard .menu-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            if (section === 'tugasAktif') {
+                document.getElementById('tugasAktifSection').classList.remove('hidden');
+                loadTugasAktif();
+            } else if (section === 'uploadTugas') {
+                document.getElementById('uploadTugasSection').classList.remove('hidden');
+                loadTugasForUpload();
+            } else if (section === 'historiTugas') {
+                document.getElementById('historiTugasSection').classList.remove('hidden');
+                loadHistoriTugas();
+            }
+        }
+
+        function loadMahasiswaData() {
+            document.getElementById('mahasiswaNim').textContent = currentUser;
+            loadTugasAktif();
+        }
+
+        function loadTugasAktif() {
+            const listDiv = document.getElementById('tugasAktifList');
+            listDiv.innerHTML = '<div class="loading">Memuat data tugas...</div>';
+
+            database.ref('tugas').once('value', (snapshot) => {
+                listDiv.innerHTML = '';
+                const tugasData = snapshot.val();
+                
+                if (!tugasData) {
+                    listDiv.innerHTML = '<div class="card"><p>Belum ada tugas yang tersedia.</p></div>';
+                    return;
+                }
+
+                const now = new Date().getTime();
+                let hasTugas = false;
+
+                Object.keys(tugasData).forEach(tugasId => {
+                    const tugas = tugasData[tugasId];
+                    const deadline = new Date(tugas.deadline).getTime();
+                    
+                    if (deadline > now) {
+                        hasTugas = true;
+                        const taskCard = document.createElement('div');
+                        taskCard.className = 'task-item';
+                        
+                        let statusBadge = '<span class="badge badge-warning">Belum Dikumpulkan</span>';
+                        if (tugas.submissions && tugas.submissions[currentUser]) {
+                            const submissionTime = new Date(tugas.submissions[currentUser].timestamp).getTime();
+                            if (submissionTime <= deadline) {
+                                statusBadge = '<span class="badge badge-success">✓ Sudah Dikumpulkan - Tepat Waktu</span>';
+                            } else {
+                                statusBadge = '<span class="badge badge-danger">⚠ Sudah Dikumpulkan - Terlambat</span>';
+                            }
+                        }
+
+                        taskCard.innerHTML = `
+                            <h4>${tugas.judul}</h4>
+                            <p><strong>Mata Kuliah:</strong> ${tugas.mataKuliah}</p>
+                            <p><strong>Jenis Tugas:</strong> ${tugas.jenisTugas}</p>
+                            <p><strong>Deskripsi:</strong> ${tugas.deskripsi}</p>
+                            <p><strong>Deadline:</strong> ${formatDateTime(tugas.deadline)}</p>
+                            ${statusBadge}
+                        `;
+                        listDiv.appendChild(taskCard);
+                    }
+                });
+
+                if (!hasTugas) {
+                    listDiv.innerHTML = '<div class="card"><p>Belum ada tugas aktif saat ini.</p></div>';
+                }
+            });
+        }
+
+        function loadTugasForUpload() {
+            const select = document.getElementById('selectTugasUpload');
+            select.innerHTML = '<option value="">Pilih Tugas</option>';
+
+            database.ref('tugas').once('value', (snapshot) => {
+                const tugasData = snapshot.val();
+                allTugasData = tugasData || {};
+                
+                if (!tugasData) {
+                    select.innerHTML = '<option value="">Belum ada tugas tersedia</option>';
+                    return;
+                }
+
+                const now = new Date().getTime();
+                let tugasCount = 0;
+
+                Object.keys(tugasData).forEach(tugasId => {
+                    const tugas = tugasData[tugasId];
+                    const deadline = new Date(tugas.deadline).getTime();
+                    
+                    if (deadline > now) {
+                        tugasCount++;
+                        const option = document.createElement('option');
+                        option.value = tugasId;
+                        option.textContent = `${tugas.judul} - ${tugas.mataKuliah}`;
+                        select.appendChild(option);
+                    }
+                });
+
+                if (tugasCount === 0) {
+                    select.innerHTML = '<option value="">Tidak ada tugas aktif</option>';
+                }
+            });
+        }
+
+        function showTugasDetail() {
+            const tugasId = document.getElementById('selectTugasUpload').value;
+            const detailDiv = document.getElementById('tugasDetailUpload');
+            
+            if (!tugasId || !allTugasData[tugasId]) {
+                detailDiv.classList.add('hidden');
+                return;
+            }
+
+            const tugas = allTugasData[tugasId];
+            document.getElementById('detailMataKuliah').innerHTML = `<strong>Mata Kuliah:</strong> ${tugas.mataKuliah}`;
+            document.getElementById('detailJenisTugas').innerHTML = `<strong>Jenis Tugas:</strong> ${tugas.jenisTugas}`;
+            document.getElementById('detailDeskripsi').innerHTML = `<strong>Deskripsi:</strong> ${tugas.deskripsi}`;
+            document.getElementById('detailDeadline').innerHTML = `<strong>Deadline:</strong> ${formatDateTime(tugas.deadline)}`;
+            
+            detailDiv.classList.remove('hidden');
+        }
+
+        function handleFileSelect(event) {
+            const file = event.target.files[0];
+            const fileNameDiv = document.getElementById('selectedFileName');
+            
+            if (!file) {
+                selectedFile = null;
+                fileNameDiv.textContent = '';
+                return;
+            }
+
+            // Allowed file types
+            const allowedTypes = [
+                'application/pdf',
+                'application/msword',
+                'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+                'application/vnd.ms-powerpoint',
+                'application/vnd.openxmlformats-officedocument.presentationml.presentation'
+            ];
+
+            console.log('File type:', file.type);
+            console.log('File size:', file.size);
+
+            if (!allowedTypes.includes(file.type)) {
+                alert('❌ Format file tidak didukung!\n\nGunakan format: PDF, DOC, DOCX, PPT, atau PPTX');
+                event.target.value = '';
+                fileNameDiv.textContent = '';
+                selectedFile = null;
+                return;
+            }
+
+            if (file.size > 10 * 1024 * 1024) {
+                alert('❌ Ukuran file terlalu besar!\n\nMaksimal ukuran file: 10MB');
+                event.target.value = '';
+                fileNameDiv.textContent = '';
+                selectedFile = null;
+                return;
+            }
+
+            selectedFile = file;
+            fileNameDiv.innerHTML = `✓ File dipilih: <strong>${file.name}</strong> (${(file.size / 1024 / 1024).toFixed(2)} MB)`;
+            console.log('File selected successfully:', file.name);
+        }
+
+        async function uploadTugas() {
+            const tugasId = document.getElementById('selectTugasUpload').value;
+            const messageDiv = document.getElementById('uploadMessage');
+            const submitBtn = document.getElementById('submitTugasBtn');
+
+            console.log('Upload started');
+            console.log('Tugas ID:', tugasId);
+            console.log('Selected file:', selectedFile);
+            console.log('Current user:', currentUser);
+
+            if (!tugasId) {
+                showMessage(messageDiv, '❌ Pilih tugas terlebih dahulu!', 'danger');
+                return;
+            }
+
+            if (!selectedFile) {
+                showMessage(messageDiv, '❌ Pilih file terlebih dahulu!', 'danger');
+                return;
+            }
+
+            // Disable button
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Mengupload...';
+            
+            showMessage(messageDiv, '⏳ Memulai upload file...', 'info');
+
+            try {
+                const timestamp = Date.now();
+                const fileName = `${tugasId}_${currentUser}_${timestamp}_${selectedFile.name}`;
+                console.log('Storage filename:', fileName);
+                
+                const storageRef = storage.ref('submissions/' + fileName);
+                console.log('Storage ref created');
+                
+                const uploadTask = storageRef.put(selectedFile);
+                console.log('Upload task started');
+
+                uploadTask.on('state_changed',
+                    (snapshot) => {
+                        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                        console.log('Upload progress:', progress.toFixed(0) + '%');
+                        showMessage(messageDiv, `📤 Upload progress: ${progress.toFixed(0)}%`, 'info');
+                    },
+                    (error) => {
+                        console.error('Upload error:', error);
+                        showMessage(messageDiv, '❌ Upload gagal: ' + error.message, 'danger');
+                        submitBtn.disabled = false;
+                        submitBtn.textContent = 'Submit Tugas';
+                    },
+                    async () => {
+                        console.log('Upload completed, getting download URL');
+                        try {
+                            const downloadURL = await uploadTask.snapshot.ref.getDownloadURL();
+                            console.log('Download URL:', downloadURL);
+                            
+                            const submissionData = {
+                                nim: currentUser,
+                                fileName: selectedFile.name,
+                                fileURL: downloadURL,
+                                timestamp: new Date().toISOString(),
+                                grade: null,
+                                note: null
+                            };
+
+                            console.log('Saving to database:', submissionData);
+                            await database.ref(`tugas/${tugasId}/submissions/${currentUser}`).set(submissionData);
+                            console.log('Data saved to database');
+                            
+                            showMessage(messageDiv, '✅ Tugas berhasil dikumpulkan!', 'success');
+                            
+                            // Reset form
+                            selectedFile = null;
+                            document.getElementById('fileInput').value = '';
+                            document.getElementById('selectedFileName').textContent = '';
+                            document.getElementById('selectTugasUpload').selectedIndex = 0;
+                            document.getElementById('tugasDetailUpload').classList.add('hidden');
+                            
+                            submitBtn.disabled = false;
+                            submitBtn.textContent = 'Submit Tugas';
+                            
+                            // Reload data
+                            setTimeout(() => {
+                                loadTugasAktif();
+                                loadTugasForUpload();
+                            }, 1000);
+                        } catch (error) {
+                            console.error('Error saving to database:', error);
+                            showMessage(messageDiv, '❌ Gagal menyimpan data: ' + error.message, 'danger');
+                            submitBtn.disabled = false;
+                            submitBtn.textContent = 'Submit Tugas';
+                        }
+                    }
+                );
+            } catch (error) {
+                console.error('Upload error:', error);
+                showMessage(messageDiv, '❌ Terjadi kesalahan: ' + error.message, 'danger');
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Submit Tugas';
+            }
+        }
+
+        function loadHistoriTugas() {
+            const listDiv = document.getElementById('historiTugasList');
+            listDiv.innerHTML = '<div class="loading">Memuat histori tugas...</div>';
+
+            database.ref('tugas').once('value', (snapshot) => {
+                listDiv.innerHTML = '';
+                const tugasData = snapshot.val();
+                
+                if (!tugasData) {
+                    listDiv.innerHTML = '<div class="card"><p>Belum ada histori tugas.</p></div>';
+                    return;
+                }
+
+                let hasHistori = false;
+
+                Object.keys(tugasData).forEach(tugasId => {
+                    const tugas = tugasData[tugasId];
+                    
+                    if (tugas.submissions && tugas.submissions[currentUser]) {
+                        hasHistori = true;
+                        const submission = tugas.submissions[currentUser];
+                        const deadline = new Date(tugas.deadline).getTime();
+                        const submitTime = new Date(submission.timestamp).getTime();
+                        
+                        let statusBadge = '';
+                        if (submitTime <= deadline) {
+                            statusBadge = '<span class="badge badge-success">✓ Tepat Waktu</span>';
+                        } else {
+                            statusBadge = '<span class="badge badge-danger">⚠ Terlambat</span>';
+                        }
+
+                        let gradeBadge = '';
+                        if (submission.grade !== null && submission.grade !== undefined) {
+                            let gradeColor = '#667eea';
+                            if (submission.grade >= 80) gradeColor = '#28a745';
+                            else if (submission.grade >= 70) gradeColor = '#17a2b8';
+                            else if (submission.grade >= 60) gradeColor = '#ffc107';
+                            else gradeColor = '#dc3545';
+                            
+                            gradeBadge = `<span class="grade-badge" style="background: ${gradeColor};">📊 Nilai: ${submission.grade}</span>`;
+                        } else {
+                            gradeBadge = '<span class="badge badge-warning">⏳ Belum Dinilai</span>';
+                        }
+
+                        let noteSection = '';
+                        if (submission.note) {
+                            noteSection = `<p style="background: #fff3cd; padding: 10px; border-radius: 5px; margin-top: 10px;"><strong>💬 Catatan Dosen:</strong> ${submission.note}</p>`;
+                        }
+
+                        const taskCard = document.createElement('div');
+                        taskCard.className = 'task-item';
+                        taskCard.innerHTML = `
+                            <h4>${tugas.judul}</h4>
+                            <p><strong>Mata Kuliah:</strong> ${tugas.mataKuliah}</p>
+                            <p><strong>Jenis Tugas:</strong> ${tugas.jenisTugas}</p>
+                            <p><strong>Deadline:</strong> ${formatDateTime(tugas.deadline)}</p>
+                            <p><strong>Waktu Pengumpulan:</strong> ${formatDateTime(submission.timestamp)}</p>
+                            <p><strong>File:</strong> ${submission.fileName}</p>
+                            ${noteSection}
+                            <div style="margin-top: 10px;">
+                                ${statusBadge}
+                                ${gradeBadge}
+                            </div>
+                        `;
+                        listDiv.appendChild(taskCard);
+                    }
+                });
+
+                if (!hasHistori) {
+                    listDiv.innerHTML = '<div class="card"><p>Belum ada tugas yang dikumpulkan.</p></div>';
+                }
+            });
+        }
+
+        // ==================== DOSEN FUNCTIONS ====================
+
+        function showDosenSection(section) {
+            document.getElementById('buatTugasSection').classList.add('hidden');
+            document.getElementById('daftarTugasSection').classList.add('hidden');
+            document.getElementById('pantauPengumpulanSection').classList.add('hidden');
+            
+            document.querySelectorAll('#dosenDashboard .menu-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            if (section === 'buatTugas') {
+                document.getElementById('buatTugasSection').classList.remove('hidden');
+            } else if (section === 'daftarTugas') {
+                document.getElementById('daftarTugasSection').classList.remove('hidden');
+                loadDaftarTugas();
+            } else if (section === 'pantauPengumpulan') {
+                document.getElementById('pantauPengumpulanSection').classList.remove('hidden');
+                loadTugasForPantau();
+            }
+        }
+
+        function loadDosenData() {
+            // Initial load
+        }
+
+        async function buatTugas() {
+            const mataKuliah = document.getElementById('mataKuliahTugas').value;
+            const judul = document.getElementById('judulTugas').value.trim();
+            const jenisTugas = document.getElementById('jenisTugas').value;
+            const deskripsi = document.getElementById('deskripsiTugas').value.trim();
+            const deadline = document.getElementById('deadlineTugas').value;
+            const messageDiv = document.getElementById('buatTugasMessage');
+
+            if (!mataKuliah || !judul || !deskripsi || !deadline) {
+                showMessage(messageDiv, 'Harap isi semua field!', 'danger');
+                return;
+            }
+
+            const deadlineDate = new Date(deadline);
+            const now = new Date();
+            
+            if (deadlineDate <= now) {
+                showMessage(messageDiv, 'Deadline harus lebih dari waktu sekarang!', 'danger');
+                return;
+            }
+
+            try {
+                const tugasData = {
+                    mataKuliah: mataKuliah,
+                    judul: judul,
+                    jenisTugas: jenisTugas,
+                    deskripsi: deskripsi,
+                    deadline: deadline,
+                    createdBy: 'dosenmengajar',
+                    createdAt: new Date().toISOString(),
+                    submissions: {}
+                };
+
+                const newTugasRef = database.ref('tugas').push();
+                await newTugasRef.set(tugasData);
+                
+                showMessage(messageDiv, '✓ Tugas berhasil dibuat! Tugas akan otomatis muncul di dashboard semua mahasiswa.', 'success');
+                
+                document.getElementById('judulTugas').value = '';
+                document.getElementById('deskripsiTugas').value = '';
+                document.getElementById('deadlineTugas').value = '';
+                document.getElementById('mataKuliahTugas').selectedIndex = 0;
+                
+            } catch (error) {
+                showMessage(messageDiv, 'Gagal membuat tugas: ' + error.message, 'danger');
+            }
+        }
+
+        function loadDaftarTugas() {
+            const listDiv = document.getElementById('daftarTugasList');
+            listDiv.innerHTML = '<div class="loading">Memuat daftar tugas...</div>';
+
+            database.ref('tugas').once('value', (snapshot) => {
+                listDiv.innerHTML = '';
+                const tugasData = snapshot.val();
+                
+                if (!tugasData) {
+                    listDiv.innerHTML = '<div class="card"><p>Belum ada tugas yang dibuat.</p></div>';
+                    return;
+                }
+
+                const tugasArray = Object.keys(tugasData).map(id => ({
+                    id: id,
+                    ...tugasData[id]
+                })).sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+                tugasArray.forEach(tugas => {
+                    const submissionCount = tugas.submissions ? Object.keys(tugas.submissions).length : 0;
+                    const percentage = ((submissionCount / MAHASISWA_NIMS.length) * 100).toFixed(0);
+                    
+                    const now = new Date().getTime();
+                    const deadline = new Date(tugas.deadline).getTime();
+                    const statusBadge = deadline > now ? 
+                        '<span class="badge badge-success">Aktif</span>' : 
+                        '<span class="badge badge-danger">Selesai</span>';
+                    
+                    const taskCard = document.createElement('div');
+                    taskCard.className = 'card';
+                    taskCard.innerHTML = `
+                        <h4>${tugas.judul} ${statusBadge}</h4>
+                        <p><strong>Mata Kuliah:</strong> ${tugas.mataKuliah}</p>
+                        <p><strong>Jenis Tugas:</strong> ${tugas.jenisTugas}</p>
+                        <p><strong>Deskripsi:</strong> ${tugas.deskripsi}</p>
+                        <p><strong>Deadline:</strong> ${formatDateTime(tugas.deadline)}</p>
+                        <p><strong>Dibuat pada:</strong> ${formatDateTime(tugas.createdAt)}</p>
+                        <div class="stats-container">
+                            <div class="stat-card">
+                                <h3>${submissionCount}</h3>
+                                <p>Mahasiswa Mengumpulkan</p>
+                            </div>
+                            <div class="stat-card">
+                                <h3>${MAHASISWA_NIMS.length - submissionCount}</h3>
+                                <p>Belum Mengumpulkan</p>
+                            </div>
+                            <div class="stat-card">
+                                <h3>${percentage}%</h3>
+                                <p>Tingkat Pengumpulan</p>
+                            </div>
+                        </div>
+                    `;
+                    listDiv.appendChild(taskCard);
+                });
+            });
+        }
+
+        function loadTugasForPantau() {
+            const select = document.getElementById('selectTugasPantau');
+            select.innerHTML = '<option value="">Pilih Tugas</option>';
+
+            database.ref('tugas').once('value', (snapshot) => {
+                const tugasData = snapshot.val();
+                
+                if (!tugasData) {
+                    select.innerHTML = '<option value="">Belum ada tugas</option>';
+                    return;
+                }
+
+                const tugasArray = Object.keys(tugasData).map(id => ({
+                    id: id,
+                    ...tugasData[id]
+                })).sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+                tugasArray.forEach(tugas => {
+                    const option = document.createElement('option');
+                    option.value = tugas.id;
+                    option.textContent = `${tugas.judul} - ${tugas.mataKuliah}`;
+                    select.appendChild(option);
+                });
+            });
+        }
+
+        function loadPengumpulan() {
+            const tugasId = document.getElementById('selectTugasPantau').value;
+            const listDiv = document.getElementById('pengumpulanList');
+
+            if (!tugasId) {
+                listDiv.innerHTML = '';
+                return;
+            }
+
+            listDiv.innerHTML = '<div class="loading">Memuat data pengumpulan...</div>';
+
+            database.ref('tugas/' + tugasId).once('value', (snapshot) => {
+                const tugas = snapshot.val();
+                
+                if (!tugas) {
+                    listDiv.innerHTML = '<div class="card"><p>Data tugas tidak ditemukan.</p></div>';
+                    return;
+                }
+
+                const deadline = new Date(tugas.deadline).getTime();
+                const submissionCount = tugas.submissions ? Object.keys(tugas.submissions).length : 0;
+                const percentage = ((submissionCount / MAHASISWA_NIMS.length) * 100).toFixed(0);
+                
+                let tableHTML = `
+                    <div class="card">
+                        <h4>${tugas.judul}</h4>
+                        <p><strong>Mata Kuliah:</strong> ${tugas.mataKuliah}</p>
+                        <p><strong>Jenis Tugas:</strong> ${tugas.jenisTugas}</p>
+                        <p><strong>Deadline:</strong> ${formatDateTime(tugas.deadline)}</p>
+                        
+                        <div class="stats-container" style="margin-top: 20px;">
+                            <div class="stat-card">
+                                <h3>${submissionCount}</h3>
+                                <p>Sudah Mengumpulkan</p>
+                            </div>
+                            <div class="stat-card">
+                                <h3>${MAHASISWA_NIMS.length - submissionCount}</h3>
+                                <p>Belum Mengumpulkan</p>
+                            </div>
+                            <div class="stat-card">
+                                <h3>${percentage}%</h3>
+                                <p>Persentase</p>
+                            </div>
+                        </div>
+
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>NIM</th>
+                                    <th>Status</th>
+                                    <th>Waktu Pengumpulan</th>
+                                    <th>File</th>
+                                    <th>Nilai</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                `;
+
+                MAHASISWA_NIMS.forEach((nim, index) => {
+                    let status = '<span class="badge badge-danger">Belum Dikumpulkan</span>';
+                    let waktu = '-';
+                    let fileLink = '-';
+                    let nilai = '-';
+                    let aksi = '-';
+
+                    if (tugas.submissions && tugas.submissions[nim]) {
+                        const submission = tugas.submissions[nim];
+                        const submitTime = new Date(submission.timestamp).getTime();
+                        
+                        if (submitTime <= deadline) {
+                            status = '<span class="badge badge-success">✓ Tepat Waktu</span>';
+                        } else {
+                            status = '<span class="badge badge-warning">⚠ Terlambat</span>';
+                        }
+                        
+                        waktu = formatDateTime(submission.timestamp);
+                        fileLink = submission.fileName;
+                        
+                        if (submission.grade !== null && submission.grade !== undefined) {
+                            let gradeColor = '#667eea';
+                            if (submission.grade >= 80) gradeColor = '#28a745';
+                            else if (submission.grade >= 70) gradeColor = '#17a2b8';
+                            else if (submission.grade >= 60) gradeColor = '#ffc107';
+                            else gradeColor = '#dc3545';
+                            
+                            nilai = `<span class="grade-badge" style="background: ${gradeColor};">${submission.grade}</span>`;
+                        } else {
+                            nilai = '<span class="badge badge-warning">Belum Dinilai</span>';
+                        }
+                        
+                        aksi = `
+                            <button class="btn btn-small btn-success" onclick="downloadFile('${submission.fileURL}', '${submission.fileName}')">📥 Download</button>
+                            <button class="btn btn-small btn-warning" onclick="openGradingModal('${tugasId}', '${nim}', '${tugas.judul}')">📝 Nilai</button>
+                        `;
+                    }
+
+                    tableHTML += `
+                        <tr>
+                            <td>${index + 1}</td>
+                            <td>${nim}</td>
+                            <td>${status}</td>
+                            <td>${waktu}</td>
+                            <td style="max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${fileLink}</td>
+                            <td>${nilai}</td>
+                            <td>${aksi}</td>
+                        </tr>
+                    `;
+                });
+
+                tableHTML += `
+                            </tbody>
+                        </table>
+                    </div>
+                `;
+
+                listDiv.innerHTML = tableHTML;
+            });
+        }
+
+        function downloadFile(url, fileName) {
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = fileName;
+            link.target = '_blank';
+            link.click();
+        }
+
+        // ==================== GRADING FUNCTIONS ====================
+
+        function openGradingModal(tugasId, nim, tugasJudul) {
+            currentGradingTugasId = tugasId;
+            currentGradingNim = nim;
+            
+            document.getElementById('modalNim').textContent = nim;
+            document.getElementById('modalTugas').textContent = tugasJudul;
+            
+            // Load existing grade if available
+            database.ref(`tugas/${tugasId}/submissions/${nim}`).once('value', (snapshot) => {
+                const submission = snapshot.val();
+                if (submission) {
+                    document.getElementById('gradeInput').value = submission.grade || '';
+                    document.getElementById('noteInput').value = submission.note || '';
+                }
+            });
+            
+            document.getElementById('gradingModal').style.display = 'block';
+        }
+
+        function closeGradingModal() {
+            document.getElementById('gradingModal').style.display = 'none';
+            document.getElementById('gradeInput').value = '';
+            document.getElementById('noteInput').value = '';
+            currentGradingTugasId = null;
+            currentGradingNim = null;
+        }
+
+        async function submitGrade() {
+            const grade = document.getElementById('gradeInput').value;
+            const note = document.getElementById('noteInput').value.trim();
+
+            if (!grade) {
+                alert('⚠️ Harap masukkan nilai!');
+                return;
+            }
+
+            const gradeNum = parseInt(grade);
+            if (isNaN(gradeNum) || gradeNum < 0 || gradeNum > 100) {
+                alert('⚠️ Nilai harus berupa angka antara 0-100!');
+                return;
+            }
+
+            try {
+                await database.ref(`tugas/${currentGradingTugasId}/submissions/${currentGradingNim}`).update({
+                    grade: gradeNum,
+                    note: note || null,
+                    gradedAt: new Date().toISOString()
+                });
+
+                alert('✅ Nilai berhasil disimpan!');
+                closeGradingModal();
+                loadPengumpulan();
+            } catch (error) {
+                alert('❌ Gagal menyimpan nilai: ' + error.message);
+            }
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('gradingModal');
+            if (event.target == modal) {
+                closeGradingModal();
+            }
+        }
+
+        // ==================== OPERATOR FUNCTIONS ====================
+
+        function showOperatorSection(section) {
+            document.getElementById('kelolaTugasSection').classList.add('hidden');
+            document.getElementById('kelolaPasswordSection').classList.add('hidden');
+            
+            document.querySelectorAll('#operatorDashboard .menu-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            if (section === 'kelolaTugas') {
+                document.getElementById('kelolaTugasSection').classList.remove('hidden');
+                loadKelolaTugas();
+            } else if (section === 'kelolaPassword') {
+                document.getElementById('kelolaPasswordSection').classList.remove('hidden');
+                loadNimMahasiswaForPassword();
+            }
+        }
+
+        function loadOperatorData() {
+            loadKelolaTugas();
+            loadNimMahasiswaForPassword();
+        }
+
+        function loadKelolaTugas() {
+            const listDiv = document.getElementById('kelolaTugasList');
+            listDiv.innerHTML = '<div class="loading">Memuat data tugas...</div>';
+
+            database.ref('tugas').once('value', (snapshot) => {
+                listDiv.innerHTML = '';
+                const tugasData = snapshot.val();
+                
+                if (!tugasData) {
+                    listDiv.innerHTML = '<div class="card"><p>Belum ada tugas yang tersedia.</p></div>';
+                    return;
+                }
+
+                const tugasArray = Object.keys(tugasData).map(id => ({
+                    id: id,
+                    ...tugasData[id]
+                })).sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+                tugasArray.forEach(tugasObj => {
+                    const tugasId = tugasObj.id;
+                    const tugas = tugasObj;
+                    
+                    const taskCard = document.createElement('div');
+                    taskCard.className = 'card';
+                    taskCard.id = `tugas-${tugasId}`;
+                    taskCard.innerHTML = `
+                        <h4>${tugas.judul}</h4>
+                        <p><strong>Mata Kuliah:</strong> ${tugas.mataKuliah}</p>
+                        <p><strong>Jenis Tugas:</strong> ${tugas.jenisTugas}</p>
+                        <p><strong>Deskripsi:</strong> ${tugas.deskripsi}</p>
+                        <p><strong>Deadline:</strong> ${formatDateTime(tugas.deadline)}</p>
+                        <button class="btn btn-small" onclick="showEditTugas('${tugasId}')">✏️ Edit</button>
+                        <button class="btn btn-small btn-danger" onclick="hapusTugas('${tugasId}')">🗑️ Hapus</button>
+                        <div id="edit-${tugasId}" class="hidden" style="margin-top: 20px; padding: 20px; background: #f8f9fa; border-radius: 8px;">
+                            <h5>Edit Tugas</h5>
+                            <div class="form-group">
+                                <label>Mata Kuliah</label>
+                                <select id="editMk-${tugasId}">
+                                    ${MATA_KULIAH.map(mk => `<option value="${mk}" ${mk === tugas.mataKuliah ? 'selected' : ''}>${mk}</option>`).join('')}
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Judul Tugas</label>
+                                <input type="text" id="editJudul-${tugasId}" value="${tugas.judul}">
+                            </div>
+                            <div class="form-group">
+                                <label>Jenis Tugas</label>
+                                <select id="editJenis-${tugasId}">
+                                    <option value="Makalah" ${tugas.jenisTugas === 'Makalah' ? 'selected' : ''}>Makalah</option>
+                                    <option value="Presentasi (PPT)" ${tugas.jenisTugas === 'Presentasi (PPT)' ? 'selected' : ''}>Presentasi (PPT)</option>
+                                    <option value="Laporan" ${tugas.jenisTugas === 'Laporan' ? 'selected' : ''}>Laporan</option>
+                                    <option value="Tugas Umum" ${tugas.jenisTugas === 'Tugas Umum' ? 'selected' : ''}>Tugas Umum</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Deskripsi</label>
+                                <textarea id="editDeskripsi-${tugasId}" rows="3">${tugas.deskripsi}</textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Deadline</label>
+                                <input type="datetime-local" id="editDeadline-${tugasId}" value="${tugas.deadline}">
+                            </div>
+                            <button class="btn btn-small btn-success" onclick="updateTugas('${tugasId}')">💾 Simpan</button>
+                            <button class="btn btn-small btn-secondary" onclick="cancelEdit('${tugasId}')">❌ Batal</button>
+                        </div>
+                    `;
+                    listDiv.appendChild(taskCard);
+                });
+            });
+        }
+
+        function showEditTugas(tugasId) {
+            document.getElementById(`edit-${tugasId}`).classList.remove('hidden');
+        }
+
+        function cancelEdit(tugasId) {
+            document.getElementById(`edit-${tugasId}`).classList.add('hidden');
+        }
+
+        async function updateTugas(tugasId) {
+            const mataKuliah = document.getElementById(`editMk-${tugasId}`).value;
+            const judul = document.getElementById(`editJudul-${tugasId}`).value.trim();
+            const jenisTugas = document.getElementById(`editJenis-${tugasId}`).value;
+            const deskripsi = document.getElementById(`editDeskripsi-${tugasId}`).value.trim();
+            const deadline = document.getElementById(`editDeadline-${tugasId}`).value;
+
+            if (!judul || !deskripsi || !deadline) {
+                alert('⚠️ Harap isi semua field!');
+                return;
+            }
+
+            try {
+                const updates = {
+                    mataKuliah: mataKuliah,
+                    judul: judul,
+                    jenisTugas: jenisTugas,
+                    deskripsi: deskripsi,
+                    deadline: deadline
+                };
+
+                await database.ref(`tugas/${tugasId}`).update(updates);
+                alert('✅ Tugas berhasil diupdate!');
+                loadKelolaTugas();
+            } catch (error) {
+                alert('❌ Gagal mengupdate tugas: ' + error.message);
+            }
+        }
+
+        async function hapusTugas(tugasId) {
+            if (!confirm('⚠️ Apakah Anda yakin ingin menghapus tugas ini?\n\nData pengumpulan dan file juga akan terhapus!')) {
+                return;
+            }
+
+            try {
+                await database.ref(`tugas/${tugasId}`).remove();
+                alert('✅ Tugas berhasil dihapus!');
+                loadKelolaTugas();
+            } catch (error) {
+                alert('❌ Gagal menghapus tugas: ' + error.message);
+            }
+        }
+
+        function loadNimMahasiswaForPassword() {
+            const select = document.getElementById('nimMahasiswaPassword');
+            select.innerHTML = '';
+            
+            MAHASISWA_NIMS.forEach(nim => {
+                const option = document.createElement('option');
+                option.value = nim;
+                option.textContent = nim;
+                select.appendChild(option);
+            });
+        }
+
+        async function ubahPasswordMahasiswa() {
+            const nim = document.getElementById('nimMahasiswaPassword').value;
+            const newPassword = document.getElementById('passwordMahasiswaBaru').value.trim();
+            const messageDiv = document.getElementById('passwordMessage');
+
+            if (!newPassword) {
+                showMessage(messageDiv, 'Harap isi password baru!', 'danger');
+                return;
+            }
+
+            if (newPassword.length < 6) {
+                showMessage(messageDiv, 'Password minimal 6 karakter!', 'danger');
+                return;
+            }
+
+            try {
+                await database.ref(`users/mahasiswa/${nim}`).update({ password: newPassword });
+                showMessage(messageDiv, `✅ Password mahasiswa ${nim} berhasil diubah!`, 'success');
+                document.getElementById('passwordMahasiswaBaru').value = '';
+            } catch (error) {
+                showMessage(messageDiv, '❌ Gagal mengubah password: ' + error.message, 'danger');
+            }
+        }
+
+        async function ubahPasswordDosen() {
+            const newPassword = document.getElementById('passwordDosenBaru').value.trim();
+            const messageDiv = document.getElementById('passwordMessage');
+
+            if (!newPassword) {
+                showMessage(messageDiv, 'Harap isi password baru!', 'danger');
+                return;
+            }
+
+            if (newPassword.length < 6) {
+                showMessage(messageDiv, 'Password minimal 6 karakter!', 'danger');
+                return;
+            }
+
+            try {
+                await database.ref('users/dosen').update({ password: newPassword });
+                showMessage(messageDiv, '✅ Password dosen berhasil diubah!', 'success');
+                document.getElementById('passwordDosenBaru').value = '';
+            } catch (error) {
+                showMessage(messageDiv, '❌ Gagal mengubah password: ' + error.message, 'danger');
+            }
+        }
+
+        async function ubahPasswordOperator() {
+            const newPassword = document.getElementById('passwordOperatorBaru').value.trim();
+            const messageDiv = document.getElementById('passwordMessage');
+
+            if (!newPassword) {
+                showMessage(messageDiv, 'Harap isi password baru!', 'danger');
+                return;
+            }
+
+            if (newPassword.length < 6) {
+                showMessage(messageDiv, 'Password minimal 6 karakter!', 'danger');
+                return;
+            }
+
+            try {
+                await database.ref('users/operator').update({ password: newPassword });
+                showMessage(messageDiv, '✅ Password operator berhasil diubah!', 'success');
+                document.getElementById('passwordOperatorBaru').value = '';
+            } catch (error) {
+                showMessage(messageDiv, '❌ Gagal mengubah password: ' + error.message, 'danger');
+            }
+        }
+
+        // ==================== UTILITY FUNCTIONS ====================
+
+        function formatDateTime(dateString) {
+            const date = new Date(dateString);
+            const options = {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                timeZone: 'Asia/Makassar'
+            };
+            return date.toLocaleDateString('id-ID', options);
+        }
+    </script>
+</body>
+</html>
